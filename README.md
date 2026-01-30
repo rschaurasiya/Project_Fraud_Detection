@@ -36,7 +36,7 @@ The pipeline is fully automated using Databricks Workflows:
 2.  **Silver Layer (Quality):** Dynamic null handling and outlier capping.
 3.  **Gold Layer (Enrichment):** Feature Engineering for AI readiness.
 
-*![Architecture](Diagram/system_workflow.png)*
+![Architecture](Diagram/system_workflow.png)
 
 ---
 
@@ -47,9 +47,21 @@ Raw data wasn't enough. I engineered **Behavioral Context** features:
 
 ---
 
-##  Model Performance
-I chose **Gradient Boosted Trees (GBT)** over Random Forest because its iterative learning strategy effectively handles class imbalance.
+##  Model Strategy & Evolution
+I adopted an iterative approach to solve the extreme class imbalance (170:1).
 
+### **Attempt 1: Random Forest (Baseline)**
+* **Technique:** Standard Random Forest with Randomized Search.
+* **Result:** High Accuracy (99%) but **Low Recall (PR AUC ~0.79)**.
+* **Why it failed:** Random Forest works by "averaging" the decisions of many trees. In a dataset dominated by safe transactions, the "average" vote drowned out the faint signal of fraud, causing the model to miss actual thieves.
+
+### **Attempt 2: Gradient Boosted Trees (GBT) - The Winner**
+* **Technique:** Iterative GBT Classifier + Capped Class Weights (100x).
+* **Why GBT was selected:**
+    1.  **Iterative Learning:** Unlike Random Forest, GBT builds trees sequentially. Each new tree focuses *exclusively* on the errors made by the previous one. This allowed the model to "hunt down" the hard-to-find fraud cases that RF missed.
+    2.  **Handling Imbalance:** By combining this iterative correction with heavy class weighting, GBT maximized Recall without sacrificing Precision.
+
+### **Final Metrics (GBT)**
 | Metric | Score | Business Interpretation |
 | :--- | :--- | :--- |
 | **ROC AUC** | **0.99** | Excellent discrimination between fraud and normal. |
@@ -70,7 +82,7 @@ The system doesn't just predict; it acts. Transactions are automatically buckete
 * **Money Saved:** **$350,000+** (in high-risk blocks)
 * **Efficiency:** Analysts only review **~2%** of transactions, while AI handles the rest.
 
-*![Architecture](Diagram/Business_insight.png)*
+![Business Insight](Diagram/Business_insight.png)
 
 ---
 
@@ -87,4 +99,4 @@ The system doesn't just predict; it acts. Transactions are automatically buckete
 
 ###  Author
 **Radheshyam Chaurasiya**
-* * Aspiring Data Scientist | Spark Enthusiast*
+* *Aspiring Data Scientist | Spark Enthusiast*
