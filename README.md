@@ -70,7 +70,7 @@ The system doesn't just predict; it acts. Transactions are automatically buckete
 * **Money Saved:** **$350,000+** (in high-risk blocks)
 * **Efficiency:** Analysts only review **~2%** of transactions, while AI handles the rest.
 
-*(Add your Dashboard Screenshot here)*
+*![Architecture](Diagram/Business_insight.png)*
 
 ---
 
