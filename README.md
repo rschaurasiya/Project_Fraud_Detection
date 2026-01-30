@@ -36,7 +36,7 @@ The pipeline is fully automated using Databricks Workflows:
 2.  **Silver Layer (Quality):** Dynamic null handling and outlier capping.
 3.  **Gold Layer (Enrichment):** Feature Engineering for AI readiness.
 
-*![Architecture](Diagrams/system_workflow.png)*
+*![Architecture](Diagram/system_workflow.png)*
 
 ---
 
