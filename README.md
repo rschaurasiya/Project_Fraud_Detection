@@ -87,4 +87,4 @@ The system doesn't just predict; it acts. Transactions are automatically buckete
 
 ###  Author
 **Radheshyam Chaurasiya**
-* *Data Scientist | Spark Enthusiast*
+* * Aspiring Data Scientist | Spark Enthusiast*
